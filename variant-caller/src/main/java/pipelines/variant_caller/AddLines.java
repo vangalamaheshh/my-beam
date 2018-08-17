@@ -12,10 +12,14 @@ import org.apache.beam.sdk.coders.AtomicCoder;
 import org.apache.beam.sdk.coders.StringUtf8Coder;
 import org.apache.beam.sdk.transforms.Combine.CombineFn;
 
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+
 
 public class AddLines extends CombineFn<String, AddLines.Accum, String> {
   
   private static final long serialVersionUID = 1L;
+  //private static final Logger LOG = LoggerFactory.getLogger(AddLines.class);
 
   public static class Accum implements Serializable {
     private static final long serialVersionUID = 1L;
