@@ -73,8 +73,7 @@ public class AddLines extends CombineFn<String, AddLines.Accum, String> {
   public Accum mergeAccumulators(Iterable<Accum> accums) {
     Accum merged = createAccumulator();
     for (Accum accum : accums) {
-      if (accum.line.length() > 1)
-        merged.line = merged.line.concat("\n").concat(accum.line);
+        merged.line = merged.line.concat(accum.line);
     }
     return merged;
   }

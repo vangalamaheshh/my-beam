@@ -23,7 +23,7 @@ public class VariantCaller
         PipelineOptions opts = PipelineOptionsFactory.fromArgs(args).create();
         Pipeline p = Pipeline.create(opts);
         PCollection<String> lines = p.apply(TextIO.read().from("test_in.csv"));
-        PCollection<String> outLines = lines.apply(ParDo.of(new LaunchDocker()));
+        PCollection<String> outLines = lines.apply(ParDo.of(new LaunchDocker.LaunchJobs()));
         PCollection<String> mergedLines = outLines.apply(Combine.globally(new AddLines()));
         mergedLines.apply(TextIO.write().to("test_out.csv"));
         p.run();
