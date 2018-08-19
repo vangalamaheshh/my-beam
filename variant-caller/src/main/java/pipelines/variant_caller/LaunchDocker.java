@@ -16,14 +16,14 @@ public class LaunchDocker extends DoFn<String, String> {
     String word = c.element().split(",")[0];
     ProcessBuilder pb = new
         ProcessBuilder("/bin/bash", "-c",
-     "docker run --rm ubuntu:16.04 sleep 20");
+     "docker run --rm ubuntu:16.04 echo hello; sleep 20");
      final Process p = pb.start();
      BufferedReader br=new BufferedReader(
          new InputStreamReader(
             p.getInputStream()));
             String line;
             while((line=br.readLine())!=null) {
-               LOG.warn(line);
+               LOG.info(line);
             }
     // Use ProcessContext.output to emit the output element.
     c.output(word);
