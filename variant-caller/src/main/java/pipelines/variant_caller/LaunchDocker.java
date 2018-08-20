@@ -16,7 +16,7 @@ public class LaunchDocker {
       LOG.info(word);
       ProcessBuilder pb = new ProcessBuilder("/bin/bash", "-c",
           "docker run --rm ubuntu:16.04 sleep 20");
-       pb.start().wait();
+       pb.inheritIO().start().waitFor();
       // Use ProcessContext.output to emit the output element.
       if (!word.isEmpty())
         c.output(word + "\n");
