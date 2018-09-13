@@ -5,18 +5,13 @@ import java.util.Arrays;
 
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.coders.StringUtf8Coder;
-//import org.apache.beam.sdk.coders.BigEndianIntegerCoder;
-//import org.apache.beam.sdk.coders.KvCoder;
-//import org.apache.beam.sdk.coders.StringUtf8Coder;
 import org.apache.beam.sdk.values.PCollection;
-import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.transforms.Combine;
 import org.apache.beam.sdk.transforms.Create;
 import org.apache.beam.sdk.transforms.ParDo;
 
 import pipelines.variant_caller.AddLines;
 import pipelines.variant_caller.LaunchDocker;
-//import org.apache.beam.sdk.PipelineResult;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.options.PipelineOptions;
 
@@ -36,7 +31,7 @@ public class VariantCaller
         // Apply Create, passing the list and the coder, to create the PCollection.
         PCollection<String> lines = p.apply(Create.of(LINES)).setCoder(StringUtf8Coder.of());
         PCollection<String> outLines = lines.apply(ParDo.of(new LaunchDocker.LaunchJobs()));
-        PCollection<String> mergedLines = outLines.apply(Combine.globally(new AddLines()));
+        outLines.apply(Combine.globally(new AddLines()));
         //mergedLines.apply(TextIO.write().to("hdfs://test_out.csv"));
         p.run();
     }
